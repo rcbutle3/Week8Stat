@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Stat Tracker</title>
+
+		<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous"> -->
+		<link rel="stylesheet" href="./styles.css">
+</head>
+
+<body>
+  <div class='wrapper'>
+    <h2>Post a new Activity</h2>
+	    {{#messages.error}}
+	      <div class="alert alert-danger" role="alert">
+	        {{.}}
+	      </div>
+	    {{/messages.error}}
+	    <form method="post" action='/add_task/'>
+	      <input type="text" id='username-input' name="username" placeholder="UserName" />
+	      <input type="text" id='date-input' name="date" placeholder="Date" />
+	      <input type="text" id='activity-input' name="activity" placeholder="Activity" />
+	      <input type="text" id='amount-input' name="amount" placeholder="Number of Sets" />
+
+	      <button type='submit'>Add Entry</button>
+	    </form>
+			<hr />
+	      <div class="nav">
+	        {{#user.length}}
+	          <h3>Activity List</h3>
+
+	        {{/user.length}}
+	        {{#user}}
+						<div>
+	            <p>UserName: {{ username }}</p>
+	            <p>Date: {{ date }}</p>
+	            <p>Activity: {{activity}}</p>
+	            <p>Amount: {{amount}}</p>
+	            <p>Type: {{amountType}}</p>
+						  <h4>Update Activity</h4>
+	            <form method="post" action='/api/activities/{{_id}}'>
+	              <input(type='hidden', name='_method', value='PUT'>
+	              <input type="text" id='activity-input' name="activity" placeholder="Activity" />
+	              <button type='submit'>Update</button>
+	            </form>
+						  <form action="/api/activities/{{id}}/delete" method="post">
+				          <input type="submit" name="" value="Delete">
+				      </form>
+	            <form action="/api/activities/{{id}}/stats" method="post">
+	              <input type="text" id='activity-input' name="activity" placeholder="Activity" />
+	              <input type="text" id='amount-input' name="amount" placeholder="Stat" />
+	              <input type="text" id='date-input' name="date" placeholder="Date" />
+				        <input type="submit" name="" value="Update">
+				      </form>
+	            <a href="http://localhost:3000/activities/{{_id}}">ID: {{_id}}</a>
+							<hr />
+	          </div>
+	        {{/user}}
+	        {{#stat.length}}
+	        <p>Stats:</p>
+	        <p>Delete Stat by Date:</p>
+	        <p>Date Format:"YYYY-MM-DD"</p>
+	        <form action="/api/stat/date_delete" method="post">
+	          <input type="text" id='date-input' name="date" placeholder="Date" />
+	          <input type="submit" name="" value="Delete">
+	        </form>
+	        {{/stat.length}}
+	        {{#stat}}
+	        <p>{{activityId}}</p>
+	        <p>{{amount}}</p>
+	        <p>{{identifier}}</p>
+	        <p>{{create_date}}</p>
+	        <form action="/api/stats/{{id}}" method="post">
+	            <input type="submit" name="" value="Delete Activity">
+	        </form>
+					<hr />
+	        {{/stat}}
+	        {{^stat}}
+	        <p>No stats available</p>
+	        {{/stat}}
+	      </div>
+				<p><a href="/">Index</a>
+				</div>
+	  </div>
+
+		<!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script> -->
+	</body>
+	</html>

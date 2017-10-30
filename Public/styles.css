@@ -1,0 +1,7 @@
+body {
+  /*display: flex;*/
+  /*flex-direction: column;*/
+  font-family: sans-serif;
+  padding: 20px;
+  background-color: purple;
+}
